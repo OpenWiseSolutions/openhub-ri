@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.openhubframework.ri</groupId>
+    <artifactId>ri-openhub</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>OpenHub - Reference implementation</name>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.openhubframework</groupId>
+        <artifactId>openhub</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>openhub-ext</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <!-- java language version -->
+        <java.version>1.8</java.version>
+        <sourceEncoding>UTF-8</sourceEncoding>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <!-- we still use JAVA 7 API -->
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <!-- all files are in UTF-8 -->
+        <project.build.sourceEncoding>${sourceEncoding}</project.build.sourceEncoding>
+
+        <!-- This version must be the same as in parent definition -->
+        <openhub.version>1.1.0-SNAPSHOT</openhub.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>Petr Juza</name>
+            <email>petr.juza@openwise.cz</email>
+            <organization>OpenWise Solutions s.r.o.</organization>
+            <organizationUrl>http://www.openwise.cz/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Tomas Hanus</name>
+            <email>tomas.hanus@openwise.cz</email>
+            <organization>OpenWise Solutions s.r.o.</organization>
+            <organizationUrl>http://www.openwise.cz/</organizationUrl>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <url>https://openhubframework.atlassian.net/projects/OHFJIRA/</url>
+        <system>JIRA</system>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/OpenWiseSolutions/openhub-ri.git</connection>
+        <developerConnection>scm:git:https://github.com/OpenWiseSolutions/openhub-ri.git</developerConnection>
+        <url>https://github.com/OpenWiseSolutions/openhub-ri.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <prerequisites>
+        <maven>3.1.0</maven>
+    </prerequisites>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-web</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-admin-console</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

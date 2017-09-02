@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openhubframework.ri</groupId>
+        <artifactId>ri-openhub</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ri-openhub-ext</artifactId>
+    <name>OpenHub - Reference implementation - Extension</name>
+    <packaging>war</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- define product OpenHub version and etc. -->
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub</artifactId>
+                <version>${openhub.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- OpenHub dependencies -->
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-web</artifactId>
+            <version>${openhub.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-admin-console</artifactId>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- we include H2 to support full standalone mode without not embedded database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-test</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>openhub-ri</finalName>
+
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
