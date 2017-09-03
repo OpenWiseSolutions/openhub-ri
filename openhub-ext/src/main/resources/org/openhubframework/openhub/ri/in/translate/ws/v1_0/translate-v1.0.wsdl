@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:cc="http://openhubframework.org/ws/Common-v1"
+                  xmlns:tns="http://openhub-ri.org/ws/TranslateService-v1"
+                  targetNamespace="http://openhub-ri.org/ws/TranslateService-v1">
+
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified">
+            <xs:import namespace="http://openhub-ri.org/ws/TranslateService-v1" schemaLocation="translateOperations-v1.0.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="traceHeaderMsg">
+        <wsdl:part element="cc:traceHeader" name="traceHeader"/>
+    </wsdl:message>
+
+    <wsdl:message name="syncTranslateRequestMsg">
+        <wsdl:part element="tns:syncTranslateRequest" name="syncTranslateRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="syncTranslateResponseMsg">
+        <wsdl:part element="tns:syncTranslateResponse" name="syncTranslateResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="asyncTranslateRequestMsg">
+        <wsdl:part element="tns:asyncTranslateRequest" name="asyncTranslateRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="asyncTranslateResponseMsg">
+        <wsdl:part element="tns:asyncTranslateResponse" name="asyncTranslateResponse">
+        </wsdl:part>
+    </wsdl:message>
+
+
+    <wsdl:portType name="Translate-v1.0">
+        <wsdl:operation name="syncTranslate">
+            <wsdl:input message="tns:syncTranslateRequestMsg" name="syncTranslateRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:syncTranslateResponseMsg" name="syncTranslateResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="asyncTranslate">
+            <wsdl:input message="tns:asyncTranslateRequestMsg" name="asyncTranslateRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:asyncTranslateResponseMsg" name="asyncTranslateResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+
+
+    <wsdl:binding name="TranslateBindingSoap11-v1.0" type="tns:Translate-v1.0">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation name="syncTranslate">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="syncTranslateRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="syncTranslateResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="asyncTranslate">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="asyncTranslateRequest">
+                <soap:header message="tns:traceHeaderMsg" part="traceHeader" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="asyncTranslateResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+
+    <wsdl:service name="TranslateService-v1.0">
+        <wsdl:port binding="tns:TranslateBindingSoap11-v1.0" name="TranslateSoap11-v1.0">
+            <soap:address location="/ws/Translate/v1"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

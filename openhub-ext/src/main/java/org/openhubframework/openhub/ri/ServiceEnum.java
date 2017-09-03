@@ -16,28 +16,20 @@
 
 package org.openhubframework.openhub.ri;
 
-import javax.annotation.PostConstruct;
+import org.openhubframework.openhub.api.entity.ServiceExtEnum;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-
-import org.openhubframework.openhub.common.AutoConfiguration;
 
 /**
- * Basic configuration of project.
+ * Enumeration of possible services (aka modules).
  *
- * @author Tomas Hanus
- * @since 1.0.0
+ * @author Petr Juza
  */
-@AutoConfiguration
-@ComponentScan
-public class ProjectConfiguration {
+public enum ServiceEnum implements ServiceExtEnum {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProjectConfiguration.class);
+    TRANSLATE;
 
-    @PostConstruct
-    public void initialization() {
-        LOG.debug("Initialization of OpenHub RI");
+    @Override
+    public String getServiceName() {
+        return name();
     }
 }

@@ -16,28 +16,20 @@
 
 package org.openhubframework.openhub.ri;
 
-import javax.annotation.PostConstruct;
+import org.springframework.test.context.ContextConfiguration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-
-import org.openhubframework.openhub.common.AutoConfiguration;
+import org.openhubframework.openhub.core.common.asynch.ExceptionTranslationRoute;
+import org.openhubframework.openhub.test.AbstractTest;
+import org.openhubframework.openhub.test.route.ActiveRoutes;
 
 /**
- * Basic configuration of project.
+ * Parent class for all tests with Apache Camel (without database).
  *
- * @author Tomas Hanus
+ * @author Petr Juza
  * @since 1.0.0
  */
-@AutoConfiguration
-@ComponentScan
-public class ProjectConfiguration {
+@ActiveRoutes(classes = ExceptionTranslationRoute.class)
+@ContextConfiguration(classes = RITestConfig.class)
+public abstract class AbstractRITest extends AbstractTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProjectConfiguration.class);
-
-    @PostConstruct
-    public void initialization() {
-        LOG.debug("Initialization of OpenHub RI");
-    }
 }

@@ -16,28 +16,19 @@
 
 package org.openhubframework.openhub.ri;
 
-import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
-import org.openhubframework.openhub.common.AutoConfiguration;
 
 /**
- * Basic configuration of project.
+ * Configuration for tests in RI.
  *
- * @author Tomas Hanus
+ * @author Petr Juza
  * @since 1.0.0
  */
-@AutoConfiguration
 @ComponentScan
-public class ProjectConfiguration {
+@PropertySource(value = {"classpath:/config/application-test-default.properties"})
+public class RITestConfig {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProjectConfiguration.class);
-
-    @PostConstruct
-    public void initialization() {
-        LOG.debug("Initialization of OpenHub RI");
-    }
 }
+
