@@ -36,6 +36,10 @@
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-admin-console</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-examples</artifactId>
+        </dependency>
 
         <!-- Spring -->
         <dependency>
