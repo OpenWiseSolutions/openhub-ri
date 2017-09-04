@@ -56,6 +56,20 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Camel -->
+        <!-- JSON support -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jsonpath</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
+
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.openhubframework</groupId>

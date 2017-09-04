@@ -27,7 +27,15 @@ import org.openhubframework.openhub.api.entity.ServiceExtEnum;
  */
 public enum ServiceEnum implements ServiceExtEnum {
 
-    TRANSLATE;
+    /**
+     * Translates input text.
+     */
+    TRANSLATE,
+
+    /**
+     * Gets exchange rates.
+     */
+    EXCHANGE_RATE;
 
     @Override
     public String getServiceName() {
