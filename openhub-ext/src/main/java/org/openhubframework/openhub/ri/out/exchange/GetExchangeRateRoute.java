@@ -48,11 +48,11 @@ public class GetExchangeRateRoute extends AbstractBasicRoute {
 
     static final String ROUTE_BEAN = "getExchangeRateRouteBean";
 
-    private static final String OPERATION_NAME = "getCurrentExchange";
+    private static final String OPERATION_NAME = "getCurrentExchangeRate";
 
     static final String ROUTE_ID = getRouteId(ServiceEnum.EXCHANGE_RATE, OPERATION_NAME);
 
-    static final String URI_GET_CURRENT_EXCHANGE = "direct:" + ROUTE_ID;
+    public static final String URI_GET_CURRENT_EXCHANGE = "direct:" + ROUTE_ID;
 
     private static final String REQUEST_PROP = "exchangeRateRequest_property";
 
@@ -68,7 +68,7 @@ public class GetExchangeRateRoute extends AbstractBasicRoute {
                 .setHeader(Exchange.HTTP_QUERY,
                         simple("base=${body.sourceCurrency}&symbols=${body.targetCurrency}"))
                 .setBody(simple(null))
-                .to("http4://api.fixer.io/latest")
+                .to("http4://api.fixer.io/latest?bridgeEndpoint=true")
                     .id("idFixerIOExternalCall")
 
                 .bean(this, "getTargetRate");

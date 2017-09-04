@@ -107,6 +107,8 @@
                 <artifactId>openhub-core</artifactId>
                 <version>${openhub.version}</version>
             </dependency>
+
+            <!-- Camel -->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jackson</artifactId>
