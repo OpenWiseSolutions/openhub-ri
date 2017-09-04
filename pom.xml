@@ -17,6 +17,7 @@
 
     <modules>
         <module>openhub-ext</module>
+        <module>openhub-war</module>
     </modules>
 
     <licenses>
@@ -77,6 +78,11 @@
         <dependencies>
             <dependency>
                 <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-core-spi</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
                 <artifactId>openhub-web</artifactId>
                 <version>${openhub.version}</version>
             </dependency>
@@ -89,6 +95,7 @@
                 <groupId>org.openhubframework</groupId>
                 <artifactId>openhub-test</artifactId>
                 <version>${openhub.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.openhubframework</groupId>
