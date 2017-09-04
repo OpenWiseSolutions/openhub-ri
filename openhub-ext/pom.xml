@@ -35,6 +35,8 @@
 
     <dependencies>
         <!-- OpenHub dependencies -->
+        <!--TODO PJUZA remove when Maven structure corrects -->
+<!--
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-web</artifactId>
@@ -44,6 +46,7 @@
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-admin-console</artifactId>
         </dependency>
+-->
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-examples</artifactId>
@@ -66,10 +69,30 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- JSON support -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jsonpath</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-components</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

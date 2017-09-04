@@ -46,13 +46,13 @@ public class SyncTranslateWsRoute extends AbstractBasicRoute {
 
     private static final String OPERATION_NAME = "syncTranslateWs";
 
-    private static final String ROUTE_ID_SYNC_TRANSLATE = getRouteId(ServiceEnum.TRANSLATE, OPERATION_NAME);
+    private static final String ROUTE_ID = getRouteId(ServiceEnum.TRANSLATE, OPERATION_NAME);
 
 
     @Override
     protected void doConfigure() throws Exception {
         from(getInWsUri(new QName(TranslateWebServiceConfig.TRANSLATE_SERVICE_NS, "syncTranslateRequest")))
-                .routeId(ROUTE_ID_SYNC_TRANSLATE)
+                .routeId(ROUTE_ID)
 
                 .policy(RouteConstants.WS_AUTH_POLICY)
 
@@ -62,7 +62,11 @@ public class SyncTranslateWsRoute extends AbstractBasicRoute {
 
                 .log(LoggingLevel.DEBUG, "Calling translate service with input text: ${body.inputText}")
 
-                .bean(this, "translate")
+                // note: we selected Google API before we found out its limitations
+                //  (you have to get API_KEY connected with your account, the Google Cloud Translation API is only
+                //  available as a paid service - https://cloud.google.com/translate/faq)
+                //  => we added custom function for translation for testing purposes only
+                .transform().body(SyncTranslateRequest.class, this::translate)
 
                 .marshal(jaxb(SyncTranslateResponse.class));
     }
@@ -72,7 +76,7 @@ public class SyncTranslateWsRoute extends AbstractBasicRoute {
         Assert.notNull(req, "req must not be null");
 
         SyncTranslateResponse res = new SyncTranslateResponse();
-        res.setOutputText("output text");
+        res.setOutputText("translated output text");
         return res;
     }
 }

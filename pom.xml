@@ -85,6 +85,31 @@
                 <artifactId>openhub-admin-console</artifactId>
                 <version>${openhub.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-test</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-components</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-core</artifactId>
+                <version>${openhub.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jackson</artifactId>
+                <version>${camel-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jsonpath</artifactId>
+                <version>${camel-version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

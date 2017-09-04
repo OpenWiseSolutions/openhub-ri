@@ -63,6 +63,6 @@ public class SyncTranslateWsRouteTest extends AbstractRITest {
         SyncTranslateResponse res = Tools.unmarshalFromXml(output, SyncTranslateResponse.class);
 
         assertThat(res, notNullValue());
-        assertThat(res.getOutputText(), is("output text"));
+        assertThat(res.getOutputText(), is("translated output text"));
     }
 }
