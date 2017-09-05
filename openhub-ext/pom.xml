@@ -40,6 +40,13 @@
             <artifactId>openhub-core-spi</artifactId>
         </dependency>
 
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- JSON support -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -72,6 +79,11 @@
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.factories</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
             </resource>
         </resources>
 
@@ -158,6 +170,24 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <!-- .git folder should not be mandatory -->
+                    <!--<failOnNoGitDirectory>false</failOnNoGitDirectory>-->
+                    <!-- @since 2.1.4 -->
+                    <!--
+                        Tell maven-git-commit-id to inject the git properties into all reactor projects not just
+                        the current one. For details about why you might want to skip this, read this issue:
+                        https://github.com/ktoso/maven-git-commit-id-plugin/pull/65
+                        The property is set to ``false`` by default to prevent the overriding of properties
+                        that may be unrelated to the project.
+                    -->
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                </configuration>
             </plugin>
         </plugins>
     </build>
