@@ -16,29 +16,22 @@
 
 package org.openhubframework.openhub.ri;
 
-import org.openhubframework.openhub.api.entity.ServiceExtEnum;
+import org.springframework.test.context.ContextConfiguration;
+
+import org.openhubframework.openhub.core.common.asynch.ExceptionTranslationRoute;
+import org.openhubframework.openhub.test.AbstractDbTest;
+import org.openhubframework.openhub.test.route.ActiveRoutes;
 
 
 /**
- * Enumeration of possible services (aka modules).
+ * Parent class for all tests based on DB.
  *
  * @author Petr Juza
  * @since 1.0.0
  */
-public enum ServiceEnum implements ServiceExtEnum {
+@ActiveRoutes(classes = ExceptionTranslationRoute.class)
+@ContextConfiguration(classes = RITestConfig.class)
+public abstract class AbstractRIDbTest extends AbstractDbTest {
 
-    /**
-     * Translates input text.
-     */
-    TRANSLATE,
-
-    /**
-     * Gets exchange rates.
-     */
-    EXCHANGE_RATE;
-
-    @Override
-    public String getServiceName() {
-        return name();
-    }
 }
+

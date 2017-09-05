@@ -24,7 +24,7 @@ import org.springframework.util.Assert;
  * Exchange rate request.
  *
  * @author Petr Juza
- * @since 2.0
+ * @since 1.0.0
  */
 public final class ExchangeRateRequest {
 
