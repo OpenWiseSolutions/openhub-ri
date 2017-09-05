@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>ri-openhub-war</artifactId>
-    <name>OpenHub - Reference implementation server</name>
+    <name>OpenHub - Reference implementation - Server</name>
     <packaging>war</packaging>
 
     <dependencies>
