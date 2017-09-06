@@ -78,7 +78,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.openhubframework</groupId>
-                <artifactId>openhub-core-spi</artifactId>
+                <artifactId>openhub-core-api</artifactId>
                 <version>${openhub.version}</version>
             </dependency>
             <dependency>
