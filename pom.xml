@@ -33,7 +33,6 @@
         <java.version>1.8</java.version>
         <sourceEncoding>UTF-8</sourceEncoding>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
-        <!-- we still use JAVA 7 API -->
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <!-- all files are in UTF-8 -->

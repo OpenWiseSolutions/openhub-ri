@@ -39,6 +39,7 @@ import org.openhubframework.openhub.ri.out.exchange.GetExchangeRateRoute;
  *         <li>source - source currency symbol, e.g. "EUR" (<a href="http://www.xe.com/iso4217.php">see</a> for possible codes)
  *         <li>target - target currency symbol, e.g. "CZK"
  *     </ul>
+ *     Output: latest rate as number (Double)
  * </ul>
  *
  * @author Petr Juza
