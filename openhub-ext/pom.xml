@@ -38,7 +38,6 @@
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-core-api</artifactId>
-            <version>${openhub.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openhubframework</groupId>
@@ -47,6 +46,10 @@
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-components</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-web</artifactId>
         </dependency>
 
         <!-- Spring Boot -->
@@ -69,11 +72,23 @@
             <version>${camel-version}</version>
         </dependency>
 
-
         <!-- test dependencies -->
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- for integration tests -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.xebialabs.restito</groupId>
+            <artifactId>restito</artifactId>
+            <version>0.9.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

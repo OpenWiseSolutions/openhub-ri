@@ -68,7 +68,7 @@ public class ExchangeRestInRoute extends AbstractBasicRoute {
                 .get("/latest")
                     .description("Gets last exchange rate.")
                     .route().routeId(ROUTE_ID).endRest()
-                    .consumes("application/json").produces("plain/text")
+                    .consumes("application/json").produces("text/plain")
 
                     .route()
                     .validate(header(SOURCE_PARAM).isNotNull())
