@@ -91,17 +91,19 @@
             </dependency>
             <dependency>
                 <groupId>org.openhubframework</groupId>
-                <artifactId>openhub-web</artifactId>
-                <version>${openhub.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.openhubframework</groupId>
                 <artifactId>openhub-admin-console</artifactId>
                 <version>${openhub.version}</version>
             </dependency>
+            <!-- test scoped dependencies -->
             <dependency>
                 <groupId>org.openhubframework</groupId>
                 <artifactId>openhub-test</artifactId>
+                <version>${openhub.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.openhubframework</groupId>
+                <artifactId>openhub-web</artifactId>
                 <version>${openhub.version}</version>
                 <scope>test</scope>
             </dependency>

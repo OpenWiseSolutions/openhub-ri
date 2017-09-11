@@ -21,6 +21,7 @@ import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.Handler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.Assert;
 
 import org.openhubframework.openhub.api.route.AbstractBasicRoute;
@@ -56,6 +57,9 @@ public class GetExchangeRateRoute extends AbstractBasicRoute {
 
     private static final String REQUEST_PROP = "exchangeRateRequest_property";
 
+    @Value("${out.exchange.rate.url:}")
+    private String exchangeRateUrl;
+
     @Override
     protected void doConfigure() throws Exception {
         from(URI_GET_CURRENT_EXCHANGE)
@@ -68,7 +72,7 @@ public class GetExchangeRateRoute extends AbstractBasicRoute {
                 .setHeader(Exchange.HTTP_QUERY,
                         simple("base=${body.sourceCurrency}&symbols=${body.targetCurrency}"))
                 .setBody(simple(null))
-                .to("http4://api.fixer.io/latest?bridgeEndpoint=true")
+                .to("http4://" + exchangeRateUrl + "?bridgeEndpoint=true")
                     .id("idFixerIOExternalCall")
 
                 .bean(this, "getTargetRate");
