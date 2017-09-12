@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:cc="http://openhubframework.org/ws/Common-v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://openhub-ri.org/ws/TranslateService-v1">
+
+    <!--
+        Note: all XSD/WSDL files are copied together at one place during XJC (Maven) code generation
+    -->
+    <xs:import namespace="http://openhubframework.org/ws/Common-v1" schemaLocation="commonTypes-v1.0.xsd"/>
+
+    <!-- syncTranslate -->
+    <xs:element name="syncTranslateRequest">
+        <xs:annotation>
+            <xs:documentation>Synchronous calling of translate service</xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inputText" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The input text to translate.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="inputLang" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>The language of the source text, set to one of the language codes listed in
+                            <a href="https://cloud.google.com/translate/docs/languages">Language Support</a>.
+                            If the source language is not specified, the API will attempt to detect the source language automatically
+                            and return it within the response.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="outputLang" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The language to use for translation of the input text, set to one of the language codes listed in
+                            <a href="https://cloud.google.com/translate/docs/languages">Language Support</a>.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="syncTranslateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="outputText" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- asyncTranslate -->
+    <xs:element name="asyncTranslateRequest">
+        <xs:annotation>
+            <xs:documentation>Asynchronous calling of translate service</xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inputText" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The input text to translate.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="inputLang" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>The language of the source text, set to one of the language codes listed in
+                            <a href="https://cloud.google.com/translate/docs/languages">Language Support</a>.
+                            If the source language is not specified, the API will attempt to detect the source language automatically
+                            and return it within the response.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="outputLang" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The language to use for translation of the input text, set to one of the language codes listed in
+                            <a href="https://cloud.google.com/translate/docs/languages">Language Support</a>.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="asyncTranslateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmAsyncTranslate" type="cc:callbackResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
