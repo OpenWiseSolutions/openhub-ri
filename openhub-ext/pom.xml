@@ -46,10 +46,38 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- JSON support -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jsonpath</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.openhubframework</groupId>
             <artifactId>openhub-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- for integration tests -->
+        <dependency>
+            <groupId>org.openhubframework</groupId>
+            <artifactId>openhub-web</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.xebialabs.restito</groupId>
+            <artifactId>restito</artifactId>
+            <version>0.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>

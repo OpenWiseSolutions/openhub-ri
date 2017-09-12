@@ -30,7 +30,12 @@ public enum ServiceEnum implements ServiceExtEnum {
     /**
      * Translates input text.
      */
-    TRANSLATE;
+    TRANSLATE,
+
+    /**
+     * Gets exchange rates.
+     */
+    EXCHANGE_RATE;
 
     @Override
     public String getServiceName() {
