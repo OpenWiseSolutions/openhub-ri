@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes id="routes-548a01a1-5b48-468e-bb5f-0312d3309d68" xmlns="http://camel.apache.org/schema/spring">
+    <route id="routeExchange">
+        <from id="helloWorld" uri="servlet:/exchange/v2/latest?httpMethodRestrict=GET"/>
+        <log id="exchange_log2" message="Convert currencies:"/>
+        <validate id="exchangeSourceNotEmpty">
+            <simple>${header.source} != null</simple>
+        </validate>
+        <validate id="exchangeTargetNotEmpty">
+            <simple>${header.target} != null</simple>
+        </validate>
+        <setHeader headerName="CamelHttpQuery" id="exchange_setHeader1">
+            <simple>base=${header.source}&amp;symbols=${header.target}</simple>
+        </setHeader>
+        <to id="httpClient" uri="http4://api.fixer.io/latest?bridgeEndpoint=true"/>
+        <setHeader headerName="Content-Type" id="exchangeContentType">
+            <constant>text/plain</constant>
+        </setHeader>
+        <transform id="_transform1">
+            <jsonpath>$.rates.${header.target}</jsonpath>
+        </transform>
+    </route>
+</routes>

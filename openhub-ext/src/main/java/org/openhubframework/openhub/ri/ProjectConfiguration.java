@@ -47,11 +47,15 @@ public class ProjectConfiguration {
     public void initialization() throws Exception {
         LOG.debug("Initialization of OpenHub RI");
 
-        LOG.info("Add custom routes from my-routes.xml:");
+        LOG.info("Add custom routes from xml:");
 
         // load route from XML and add them to the existing camel context
-        InputStream is = getClass().getResourceAsStream("/my-routes.xml");
+        InputStream is = getClass().getResourceAsStream("/asyncTranslate.xml");
         RoutesDefinition routes = context.loadRoutesDefinition(is);
+        context.addRouteDefinitions(routes.getRoutes());
+
+        is = getClass().getResourceAsStream("/exchange.xml");
+        routes = context.loadRoutesDefinition(is);
         context.addRouteDefinitions(routes.getRoutes());
 
         LOG.info("HOTOVO");
