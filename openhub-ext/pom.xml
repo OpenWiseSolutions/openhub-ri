@@ -57,6 +57,11 @@
             <artifactId>camel-jsonpath</artifactId>
         </dependency>
 
+        <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-dozer</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.openhubframework</groupId>

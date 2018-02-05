@@ -41,7 +41,7 @@ import org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateResponse
  * @author Petr Juza
  * @since 1.0.0
  */
-@CamelConfiguration(value = AsyncTranslateWsRoute.ROUTE_BEAN)
+//@CamelConfiguration(value = AsyncTranslateWsRoute.ROUTE_BEAN)
 public class AsyncTranslateWsRoute extends AbstractBasicRoute {
 
     static final String ROUTE_BEAN = "asyncTranslateWsRouteBean";

@@ -16,10 +16,14 @@
 
 package org.openhubframework.openhub.ri;
 
+import java.io.InputStream;
 import javax.annotation.PostConstruct;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.model.RoutesDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
 import org.openhubframework.openhub.common.AutoConfiguration;
@@ -36,8 +40,20 @@ public class ProjectConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectConfiguration.class);
 
+    @Autowired
+    private CamelContext context;
+
     @PostConstruct
-    public void initialization() {
+    public void initialization() throws Exception {
         LOG.debug("Initialization of OpenHub RI");
+
+        LOG.info("Add custom routes from my-routes.xml:");
+
+        // load route from XML and add them to the existing camel context
+        InputStream is = getClass().getResourceAsStream("/my-routes.xml");
+        RoutesDefinition routes = context.loadRoutesDefinition(is);
+        context.addRouteDefinitions(routes.getRoutes());
+
+        LOG.info("HOTOVO");
     }
 }
