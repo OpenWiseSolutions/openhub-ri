@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <camelContext id="camelContext-3589e6dd-1a6b-4ce5-b0a6-d46c0df4b6d5"
+        trace="false" xmlns="http://camel.apache.org/schema/spring">
+        <endpoint id="toDepositMapping" uri="dozer:toDepositMapping?sourceModel=org.openhubframework.openhub.ri.BalanceCheckRequest&amp;targetModel=org.openhubframework.openhub.ri.DepositSystemBalanceCheckRequest&amp;mappingFile=tranToDepositMapping.xml"/>
+        <endpoint id="toAuditCreate" uri="dozer:toAuditCreate?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToAuditCreate.xml"/>
+        <endpoint id="toDepositQuery" uri="dozer:toDepositQuery?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToDepositQuery.xml"/>
+        <endpoint id="toLoanQuery" uri="dozer:toLoanQuery?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToLoanQuery.xml"/>
+        <endpoint id="tranToConversionOrder" uri="dozer:tranToConversionOrder?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToConversion.xml"/>
+        <endpoint id="toGetAccountStatus" uri="dozer:toGetAccountStatus?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToGetAccountStatus.xml"/>
+        <endpoint id="toCheckAccountGranted" uri="dozer:toCheckAccountGranted?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=tranToCheckAccountGranted.xml"/>
+        <route id="CisBalanceCheck">
+            <from id="cisBalanceCheckIn" uri="spring-ws://rootqname:(http://openhub-ri.org/ws/CisBalanceService-v1)balanceCheck?endpointMapping=%23endpointMapping"/>
+            <to id="_to1" uri="throttling:sync:cisBalanceCheck"/>
+            <onException id="notAccountGranted">
+                <continued>
+                    <constant>NotGrantedAccount</constant>
+                </continued>
+                <to id="_to6" uri="direct:auditRecord"/>
+                <setBody id="outputMessage2">
+                    <constant>NotGrantedAccount</constant>
+                </setBody>
+                <marshal id="_marshal7">
+                    <jaxb contextPath="cz.hello.result" partClass="CisBalanceCheckResponse"/>
+                </marshal>
+            </onException>
+            <unmarshal id="_unmarshal1">
+                <jaxb contextPath="cz.openhub.CisBalanceCheckRequest"/>
+            </unmarshal>
+            <setProperty id="storeBody" propertyName="ORIGINAL_REQUEST">
+                <simple>${body}</simple>
+            </setProperty>
+            <to id="_to2" uri="direct:checkAccountGranted"/>
+            <to id="getAccountStatusDirect" uri="direct:getAccountStatus"/>
+            <to id="_to7" uri="direct:currencyConversion"/>
+            <to id="_to12" uri="direct:querySystems"/>
+            <to id="_to15" uri="direct:auditRecord"/>
+            <setBody id="outputMessage">
+                <simple>${property.OUTPUT_MESSAGE}</simple>
+            </setBody>
+            <marshal id="_marshal6">
+                <jaxb contextPath="cz.hello.result" partClass="CisBalanceCheckResponse"/>
+            </marshal>
+        </route>
+        <route id="checkAccountGranted">
+            <from id="_from1" uri="direct:checkAccountGranted"/>
+            <to id="_to3" uri="ref:toCheckAccountGranted"/>
+            <marshal id="_marshal2">
+                <jaxb
+                    contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest"/>
+            </marshal>
+            <to id="toCheckAcountGrantedOut" uri="spring-ws:http://services/checkAcountGranted/v1?messageSender=#selfMessageSender"/>
+            <unmarshal id="_unmarshal6"/>
+            <choice id="_choice3">
+                <when id="${body.granted} == false">
+                    <mvel/>
+                    <throwException id="notGrantedAccount"/>
+                </when>
+            </choice>
+        </route>
+        <route id="getAccountStatus">
+            <from id="_from2" uri="direct:getAccountStatus"/>
+            <setBody id="originalRequest">
+                <simple>${property.ORIGINAL_REQUEST}</simple>
+                <description>originalRequest</description>
+            </setBody>
+            <to id="_to4" uri="ref:toGetAccountStatus"/>
+            <marshal id="_marshal3">
+                <jaxb
+                    contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest"/>
+            </marshal>
+            <to id="getAcountStatusOut" uri="spring-ws:http://services/getAcountStatus/v1?messageSender=#selfMessageSender"/>
+            <unmarshal id="_unmarshal2">
+                <jaxb contextPath="cz.hello.esb.model" partClass="GetAccountStatusResponse"/>
+            </unmarshal>
+            <setProperty id="accountInfo" propertyName="ACOUNT_INFO">
+                <simple>${body}</simple>
+            </setProperty>
+        </route>
+        <route id="currencyConversion">
+            <from id="_from3" uri="direct:currencyConversion"/>
+            <setBody id="originalRequestSet">
+                <simple>${property.ORIGINALREQUEST}</simple>
+            </setBody>
+            <choice id="_choice1">
+                <when id="_f">
+                    <simple>${body.currency} == ${property.ACCOUNT_INFO.mainCurrency}</simple>
+                    <to id="_to5" uri="ref:tranToConversionOrder"/>
+                    <marshal id="_marshal1">
+                        <jaxb contextPath="cz.hello.esb" partClass="currencyConversionRequest"/>
+                    </marshal>
+                    <to id="_to6" uri="spring-ws:http://services/currencyConversion/v1?messageSender=#selfMessageSender"/>
+                    <unmarshal id="_unmarshal3">
+                        <jaxb contextPath="cz.services" partClass="CurrencyConversionResponse"/>
+                    </unmarshal>
+                    <setProperty id="amountInCurrencyConverted" propertyName="AMOUNT">
+                        <simple>${body.amountInCurreny}</simple>
+                    </setProperty>
+                </when>
+                <otherwise id="_otherwise1">
+                    <setProperty id="amountInCurrencyOriginal" propertyName="AMOUNT">
+                        <simple>${body.amount}</simple>
+                    </setProperty>
+                </otherwise>
+            </choice>
+        </route>
+        <route id="querySystems">
+            <from id="_from4" uri="direct:querySystems"/>
+            <choice id="_choice2">
+                <when id="_when1">
+                    <mvel>DEPOSIT == ${property.accountInfo.type}</mvel>
+                    <to id="_to16" uri="ref:toDepositMapping"/>
+                    <marshal id="_marshal5"/>
+                    <to id="_to11" uri="spring-ws:http://services/depositSystemQuery/v1?messageSender=#selfMessageSender"/>
+                    <unmarshal id="_unmarshal5"/>
+                </when>
+                <when id="_when2">
+                    <mvel>LOAN == ${property.accountInfo.type}</mvel>
+                    <to id="_to8" uri="ref:toLoanQuery"/>
+                    <marshal id="_marshal4"/>
+                    <to id="_to10" uri="spring-ws:http://services/loanSystemQuery/v1?messageSender=#selfMessageSender"/>
+                    <unmarshal id="_unmarshal4"/>
+                </when>
+                <otherwise id="_otherwise2">
+                    <throwException
+                        exceptionType="cz.hello.exception.UnsupportedAccountType" id="_throwException1"/>
+                </otherwise>
+            </choice>
+            <transform id="_transform1"/>
+            <setProperty id="output" propertyName="OUTPUT_MESSAGE">
+                <simple/>
+            </setProperty>
+        </route>
+        <route id="auditRecord">
+            <from id="_from5" uri="direct:auditRecord"/>
+            <setBody id="resultProperty">
+                <simple>${property.result}</simple>
+            </setBody>
+            <to id="_to13" uri="ref:toAuditCreate"/>
+            <marshal id="_marshal7"/>
+            <to id="_to14" uri="spring-ws:http://services/audit/v1?messageSender=#selfMessageSender"/>
+        </route>
+    </camelContext>
+</beans>

@@ -22,7 +22,7 @@
             <description>kkkkkkkkk</description>
         </unmarshal>
         <log id="_log3" message="Jdu dozerovat : ${body}"/>
-        <to id="_to3" pattern="InOptionalOut" uri="dozer:translate?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=transformationMapVol2.xml">
+        <to id="_to3" pattern="InOptionalOut" uri="dozer:translate?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=transformationMapToRequest.xml">
             <description>addaddada</description>
         </to>
         <to id="_to4" uri="extcall:message:direct:callTranslateSync"/>

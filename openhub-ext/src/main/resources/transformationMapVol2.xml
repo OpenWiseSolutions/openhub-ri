@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
+    <configuration>
+        <wildcard>false</wildcard>
+    </configuration>
+    <mapping>
+        <class-a>org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest</class-a>
+        <class-b>org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest</class-b>
+        <field>
+            <a>outputLang</a>
+            <b>outputLang</b>
+        </field>
+        <field>
+            <a>inputLang</a>
+            <b>inputLang</b>
+        </field>
+        <field>
+            <a>inputText</a>
+            <b>inputText</b>
+        </field>
+    </mapping>
+</mappings>

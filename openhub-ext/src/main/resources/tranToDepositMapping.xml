@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
+    <configuration>
+        <wildcard>false</wildcard>
+    </configuration>
+    <mapping>
+        <class-a>org.openhubframework.openhub.ri.BalanceCheckRequest</class-a>
+        <class-b>org.openhubframework.openhub.ri.DepositSystemBalanceCheckRequest</class-b>
+        <field>
+            <a>amount</a>
+            <b>amount</b>
+        </field>
+        <field>
+            <a>accountNumber</a>
+            <b>depositAccountNumber</b>
+        </field>
+        <field>
+            <a>currencyId</a>
+            <b>currencyCode</b>
+        </field>
+        <field>
+            <a>message</a>
+            <b>messageForPayment</b>
+        </field>
+    </mapping>
+</mappings>

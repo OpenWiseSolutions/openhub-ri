@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <camelContext id="camelContext-7e987be0-be33-439b-be74-b153405b7fd8"
+        trace="false" xmlns="http://camel.apache.org/schema/spring">
+        <endpoint id="kkkkk" uri="dozer:kkkkk?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=transformation.xml"/>
+        <route id="_route1">
+            <from id="_to5" uri="file:directoryName"/>
+            <to id="_to1kk" uri="ref:kkkkk"/>
+        </route>
+        <route id="asyncTranslateInRoute">
+            <from id="_from1" uri="spring-ws://rootqname:(http://openhub-ri.org/ws/TranslateService-v1)asyncTranslateRequest?endpointMapping=%23endpointMapping"/>
+            <setHeader headerName="asynchService" id="_setHeader1">
+                <simple resultType="org.openhubframework.openhub.ri.ServiceEnum">${type:org.openhubframework.openhub.ri.ServiceEnum.TRANSLATE}</simple>
+            </setHeader>
+            <setHeader headerName="asynchOperation" id="_setHeader2">
+                <constant>asyncTranslateWs</constant>
+            </setHeader>
+            <log id="_log1" message="Exchange translate ${body}"/>
+            <to id="_to1" uri="direct://asynch_in_message_route"/>
+            <to id="_to2" uri="direct:my-async-response"/>
+        </route>
+        <route id="asyncTranslateOutRoute">
+            <!-- komentář -->
+            <from id="_from2" uri="direct://TRANSLATE_asyncTranslateWs_out_route"/>
+            <log id="_log2" message="Provolala se asynchronnnnne!! a je v ni ${body}"/>
+            <unmarshal id="_unmarshal1">
+                <jaxb
+                    contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest"/>
+            </unmarshal>
+            <log id="_log3" message="Jdu dozerovat : ${body}"/>
+            <to id="_to3" pattern="InOptionalOut" uri="dozer:translate?sourceModel=org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateRequest&amp;targetModel=org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest&amp;mappingFile=transformationMapToRequest.xml"/>
+            <to id="_to4" uri="extcall:message:direct:callTranslateSync"/>
+        </route>
+        <route id="my-async-response" shutdownRoute="Default">
+            <from id="_from3" uri="direct:my-async-response"/>
+            <bean
+                beanType="org.openhubframework.openhub.ri.AsyncResponseService"
+                id="createAsyncResponse" method="asyncResponse"/>
+            <marshal id="_marshal1">
+                <jaxb
+                    contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.AsyncTranslateResponse"/>
+            </marshal>
+        </route>
+        <route id="extcallCallExternal">
+            <from id="_from4" uri="direct:callTranslateSync"/>
+            <marshal id="_marshal2">
+                <jaxb
+                    contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest"/>
+            </marshal>
+            <to id="toExternal" uri="spring-ws:http://localhost:8080/ws/Translate/v1?messageSender=#selfMessageSender"/>
+        </route>
+        <route id="routeExchange">
+            <from id="helloWorld" uri="servlet:/exchange/v2/latest?httpMethodRestrict=GET"/>
+            <log id="exchange_jjjjj" message="Convert currencies:"/>
+            <validate id="exchangeSourceNotEmpty">
+                <simple>${header.source} != null</simple>
+            </validate>
+            <validate id="exchangeTargetNotEmpty">
+                <simple>${header.target} != null</simple>
+            </validate>
+            <setHeader headerName="CamelHttpQuery" id="exchange_setHeader1">
+                <simple>base=${header.source}&amp;symbols=${header.target}</simple>
+            </setHeader>
+            <to id="httpClient" uri="http4://api.fixer.io/latest?bridgeEndpoint=true"/>
+            <setHeader headerName="Content-Type" id="exchangeContentType">
+                <constant>text/plain</constant>
+            </setHeader>
+            <transform id="_transform1">
+                <jsonpath>$.rates.${header.target}</jsonpath>
+            </transform>
+        </route>
+    </camelContext>
+</beans>
