@@ -58,6 +58,11 @@ public class ProjectConfiguration {
         routes = context.loadRoutesDefinition(is);
         context.addRouteDefinitions(routes.getRoutes());
 
+
+        is = getClass().getResourceAsStream("/json-to-xml.xml");
+        routes = context.loadRoutesDefinition(is);
+        context.addRouteDefinitions(routes.getRoutes());
+
         LOG.info("HOTOVO");
     }
 }

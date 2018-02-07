@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes id="routes-821c6750-5c6b-4696-a9ab-3ccf608e1a5d" xmlns="http://camel.apache.org/schema/spring">
+    <route id="json-to-xml">
+        <from id="helloWorldJsonToXml" uri="servlet:/json-to-xml/v1?httpMethodRestrict=POST"/>
+        <unmarshal id="_unmarshal1x">
+            <xmljson/>
+        </unmarshal>
+        <to id="httpClientVolff" uri="http4://localhost:9999?bridgeEndpoint=true"/>
+    </route>
+</routes>

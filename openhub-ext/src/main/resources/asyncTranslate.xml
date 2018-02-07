@@ -40,5 +40,9 @@
                 contextPath="org.openhubframework.openhub.ri.in.translate.model" partClass="org.openhubframework.openhub.ri.in.translate.model.SyncTranslateRequest"/>
         </marshal>
         <to id="toExternal" uri="spring-ws:http://localhost:8080/ws/Translate/v1?messageSender=#selfMessageSender"/>
+        <marshal id="_unmarshal12">
+            <xmljson/>
+        </marshal>
+        <to id="httpClientVol" uri="http4://localhost:9999"/>
     </route>
 </routes>
