@@ -16,6 +16,21 @@ Look at [wiki] for more details.
 	* WSDL /ws/translate.wsdl 
 	* input routes: org.openhubframework.openhub.ri.in.translate.SyncTranslateWsRoute, org.openhubframework.openhub.ri.in.translate.AsyncTranslateWsRoute
 
+### Running
+
+#### Standalone
+1. Build: `mvn clean package`
+2. Run: `java $JAVA_OPTS -Dserver.port=8080 -Dspring.profiles.active=example-module,h2 -jar openhub-war/target/openhub-ri.war`
+
+#### Servlet container
+1. Build: `mvn clean package -Dserver`
+2. Deploy on servlet container such as Tomcat
+
+#### Docker
+1. Run: `docker-compose up`
+
+Open web browser: `http://localhost:8080/web/admin/console/`
+
 ### License
 
 [Apache License 2.0]

@@ -74,4 +74,39 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <!-- Standalone running -->
+            <!-- See: https://openhubframework.atlassian.net/wiki/display/OHF/Standalone+running -->
+            <id>esb.executable</id>
+
+            <activation>
+                <property>
+                    <name>!server</name>
+                </property>
+            </activation>
+
+            <properties>
+                <packaging.type>executable</packaging.type>
+            </properties>
+
+            <dependencies>
+                <!-- include embedded undertow and libraries -->
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-undertow</artifactId>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <!-- package as an executable war -->
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
