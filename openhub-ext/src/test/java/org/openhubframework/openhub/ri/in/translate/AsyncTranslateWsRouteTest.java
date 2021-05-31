@@ -17,7 +17,7 @@
 package org.openhubframework.openhub.ri.in.translate;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Message;
