@@ -16,17 +16,17 @@
 
 package org.openhubframework.openhub.ri;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.openhubframework.openhub.ri.AbstractIntegrationTest.STUB_SERVER_PORT;
 
-import com.xebialabs.restito.server.StubServer;
-import org.junit.After;
-import org.junit.Before;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Rule;
 import org.openhubframework.openhub.test.TestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.TestPropertySource;
 
@@ -56,23 +56,15 @@ public abstract class AbstractIntegrationTest extends AbstractRITest {
     @LocalServerPort
     private int port;
 
-    protected StubServer stubServer;
-
     @Autowired
     protected TestRestTemplate testRestTemplate;
 
     @Value("${stub.server.port}")
     protected int stubServerPort;
 
-    @Before
-    public void start() {
-        stubServer = new StubServer(stubServerPort).run();
-    }
-
-    @After
-    public void stop() {
-        stubServer.stop();
-    }
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(wireMockConfig()
+            .port(STUB_SERVER_PORT));
 
     /**
      * Get port of embedded web context.

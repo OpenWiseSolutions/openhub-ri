@@ -18,8 +18,9 @@ package org.openhubframework.openhub.ri.in.translate;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -31,6 +32,7 @@ import org.openhubframework.openhub.ri.AbstractRITest;
 import org.openhubframework.openhub.ri.in.translate.model.SyncTranslateResponse;
 import org.openhubframework.openhub.test.route.ActiveRoutes;
 import org.openhubframework.openhub.test.route.TestWsUriBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -47,6 +49,9 @@ public class SyncTranslateWsRouteTest extends AbstractRITest {
 
     @EndpointInject(uri = "mock:test")
     private MockEndpoint mock;
+
+    @Autowired
+    private CamelContext context;
 
     /**
      * Checking successful calling.

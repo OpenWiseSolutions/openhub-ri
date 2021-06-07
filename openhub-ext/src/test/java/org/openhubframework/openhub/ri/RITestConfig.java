@@ -16,6 +16,7 @@
 
 package org.openhubframework.openhub.ri;
 
+import org.openhubframework.openhub.test.route.EnableTestWsUriBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
@@ -26,6 +27,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author Petr Juza
  * @since 1.0.0
  */
+@EnableTestWsUriBuilder
 @ComponentScan
 @PropertySource(value = {"classpath:/config/application-test-default.properties"})
 public class RITestConfig {

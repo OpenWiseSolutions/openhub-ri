@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.openhubframework</groupId>
         <artifactId>openhub</artifactId>
-        <version>2.0.0</version>
+        <version>2.3.0</version>
     </parent>
 
     <modules>
@@ -39,7 +39,7 @@
         <project.build.sourceEncoding>${sourceEncoding}</project.build.sourceEncoding>
 
         <!-- This version must be the same as in parent definition -->
-        <openhub.version>2.0.0</openhub.version>
+        <openhub.version>2.3.0</openhub.version>
     </properties>
 
     <developers>

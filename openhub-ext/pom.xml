@@ -75,9 +75,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.xebialabs.restito</groupId>
-            <artifactId>restito</artifactId>
-            <version>0.9.2</version>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>2.27.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
